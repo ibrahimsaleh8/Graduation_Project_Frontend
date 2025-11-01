@@ -1,13 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-* {
-  cursor: none !important;
-}
-@media (max-width: 768px) {
-  * {
-    cursor: auto !important;
-  }
-}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -48,18 +41,16 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-  --color-main-color: var(--main-color);
   --color-main-bg: var(--main-background);
-  --color-hover-link: var(--hover-link);
   --color-low-color: var(--low-color);
   --color-low-text: var(--low-text);
+  --color-hover-color: var(--hover-color);
   --color-box-bg: var(--box-bg);
+  --color-main-blue-color: var(--main-blue-color);
 }
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
@@ -89,12 +80,14 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
-  --main-color: red;
-  --main-background: #ffffff;
-  --hover-link: #0a0a0a;
+  --main-background: #f0f7ff;
   --low-color: #00000021;
   --low-text: #afafb0;
-  --box-bg: #323232;
+  --hover-color: #eeeeee;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --box-bg: #121212;
+  --main-blue-color: #1c398e;
 }
 
 .dark {
@@ -129,12 +122,12 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
-  --main-color: blue;
-  --main-background: #0c0c0c;
-  --hover-link: #ffffff;
+  --main-background: #030712;
   --low-color: #ffffff1f;
-  --box-bg: #252525;
+  --hover-color: #ffffff1f;
   --low-text: #ffffff87;
+  --box-bg: #101828;
+  --main-blue-color: #1c398e;
 }
 
 @layer base {
@@ -146,45 +139,8 @@
   }
 }
 
-.link-arrow {
-  position: relative;
-  border-color: var(--color-low-color);
-}
-.link-arrow::before {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0%;
-  height: 1px;
-  background: var(--color-hover-link);
-  transition: 0.5s;
-}
-.link-arrow:hover::before {
-  width: 100%;
-  transition: 0.5s;
-}
-
-.header-clip {
-  /* clip-path: polygon(
-    0% 2em,
-    2em 0,
-    100% 0,
-    100% calc(100% - 2em),
-    calc(100% - 2em) 100%,
-    0 100%
-  ); */
-
-  clip-path: polygon(
-    0% 0.9em,
-    0.9em 0,
-    100% 0,
-    100% calc(100% - 0.9em),
-    calc(100% - 0.9em) 100%,
-    0 100%
-  );
-}
-
-.bankai-bg {
-  background: #090909;
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
 }
