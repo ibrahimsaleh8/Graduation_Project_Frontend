@@ -1,10 +1,15 @@
-import Container from "@/components/Layout/Container";
-import Hero from "@/components/Layout/Hero";
+import Footer from "@/components/Layout/Footer";
+import Hero from "@/components/sections/Hero";
+import LatestJobsSections from "@/components/sections/LatestJobsSections";
+import WhyChooseUs from "@/components/sections/WhyChooseUs";
 
 export default function HomePage() {
   return (
-    <Container>
+    <div>
       <Hero />
-    </Container>
+      <LatestJobsSections />
+      <WhyChooseUs />
+      <Footer />
+    </div>
   );
 }

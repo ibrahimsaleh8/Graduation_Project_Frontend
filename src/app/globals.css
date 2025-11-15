@@ -42,6 +42,12 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
   --color-main-bg: var(--main-background);
+  --color-second-bg: var(--second-bg);
+  --color-soft-border: var(--soft-border);
+  --color-box-shadow-color: var(--box-shadow-color);
+  --color-bcard-bg: var(--card-bg);
+  --color-glass-main-blue: var(--glass-main-blue);
+
   --color-low-color: var(--low-color);
   --color-low-text: var(--low-text);
   --color-hover-color: var(--hover-color);
@@ -80,14 +86,20 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
-  --main-background: #f0f7ff;
+  --main-background: #f8f8f8;
+  --second-bg: #ffff;
+  --soft-border: #efefef;
+  --box-shadow-color: rgb(160 160 160 / 75%);
+  --card-bg: #fcfcfc;
+  --glass-main-blue: #d2ecff;
+
   --low-color: #00000021;
   --low-text: #afafb0;
   --hover-color: #eeeeee;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --box-bg: #121212;
-  --main-blue-color: #1c398e;
+  --main-blue-color: #1783d0;
 }
 
 .dark {
@@ -122,7 +134,13 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
-  --main-background: #030712;
+  --main-background: #0f0f11;
+  --second-bg: #171717;
+  --soft-border: #383838;
+  --box-shadow-color: #141414bf;
+  --card-bg: #131313;
+  --glass-main-blue: #d2ecff;
+
   --low-color: #ffffff1f;
   --hover-color: #ffffff1f;
   --low-text: #ffffff87;
@@ -143,4 +161,11 @@
 ::view-transition-new(root) {
   animation: none;
   mix-blend-mode: normal;
+}
+
+.header-shadow {
+  box-shadow: 0px 0px 1px 0px var(--box-shadow-color);
+}
+.srollar-shadow {
+  position: relative;
 }
