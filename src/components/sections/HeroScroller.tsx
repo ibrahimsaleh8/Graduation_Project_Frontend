@@ -21,8 +21,7 @@ import apple from "@images/Icons/apple-11.svg";
 import godady from "@images/Icons/GoDaddy_light.svg";
 import facebook from "@images/Icons/facebook-7.svg";
 import samsung from "@images/Icons/samsung-electronics.svg";
-// ✅ All icons in one array (light + dark)
-const ICONS = [
+const icons = [
   airbnb,
   amazonDark,
   discord,
@@ -44,21 +43,7 @@ export default function HeroScroller() {
     <ScrollVelocityContainer className="py-8">
       {/* First row */}
       <ScrollVelocityRow baseVelocity={5} direction={1}>
-        {ICONS.map((src, idx) => (
-          <Image
-            key={idx}
-            src={src}
-            alt="Brand Logo"
-            width={160}
-            height={80}
-            loading="lazy"
-            decoding="async"
-            className="mx-6 w-32 grayscale dark:invert object-contain transition duration-300"
-          />
-        ))}
-      </ScrollVelocityRow>
-      <ScrollVelocityRow baseVelocity={5} direction={-1} className="mt-5">
-        {ICONS.reverse().map((src, idx) => (
+        {icons.map((src, idx) => (
           <Image
             key={idx}
             src={src}

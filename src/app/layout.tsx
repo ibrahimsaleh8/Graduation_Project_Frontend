@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
-import MainHeader from "@/components/Layout/MainHeader";
 import { ThemeProvider } from "@/components/theme-provider";
 
 const font = Poppins({
@@ -27,7 +26,6 @@ export default function RootLayout({
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange>
-          <MainHeader />
           {children}
         </ThemeProvider>
       </body>

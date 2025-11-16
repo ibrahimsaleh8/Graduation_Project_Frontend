@@ -75,7 +75,7 @@ export default function SmallHeader() {
                 <Link
                   onClick={() => setOpen(false)}
                   className={`hover:bg-hover-color duration-300 py-1.5 border-2 border-soft-border px-6 dark:text-white text-main-blue-color rounded-md`}
-                  href={"/employee"}>
+                  href={"/login"}>
                   Login
                 </Link>
               </li>
@@ -83,7 +83,7 @@ export default function SmallHeader() {
                 <Link
                   onClick={() => setOpen(false)}
                   className={`hover:opacity-90 duration-300 py-1.5 border-2 border-main-blue-color px-6 text-white bg-main-blue-color rounded-md`}
-                  href={"/companies"}>
+                  href={"/register"}>
                   Sign Up
                 </Link>
               </li>

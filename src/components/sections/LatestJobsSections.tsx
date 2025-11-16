@@ -1,13 +1,16 @@
 import Link from "next/link";
 import HomePageJobCard from "./HomePageJobCard";
+import { TypingAnimation } from "../ui/typing-animation";
 
 export default function LatestJobsSections() {
   return (
     <div className="py-10 px-4 bg-second-bg flex flex-col text-center gap-20 pt-28">
-      <p className="text-5xl capitalize font-bold mx-auto">
+      <TypingAnimation
+        as={"p"}
+        startOnView={true}
+        className="text-5xl capitalize font-bold mx-auto">
         Latest job opportunities
-      </p>
-
+      </TypingAnimation>
       {/* Jobs */}
       <div className="container grid grid-cols-1 lg:grid-cols-2 mx-auto gap-10">
         <HomePageJobCard />

@@ -9,7 +9,7 @@ export default function MainHeader() {
   const route = usePathname();
 
   return (
-    <header className="lg:w-[90%] w-full bg-second-bg px-4 py-5 mx-auto lg:mt-5 border border-soft-border lg:rounded-md header-shadow">
+    <header className="lg:container w-full bg-second-bg px-4 py-5 mx-auto lg:mt-5 border border-soft-border lg:rounded-md header-shadow">
       <div className="flex items-center gap-4 justify-between w-full">
         <Link href={"/"} className="font-bold w-fit lg:w-full">
           <Image
@@ -45,7 +45,7 @@ export default function MainHeader() {
               className={`hover:bg-hover-color duration-300 py-1.5 border-2 border-soft-border px-6 dark:text-white text-main-blue-color rounded-md ${
                 route == "/employee" ? "bg-hover-color" : ""
               } `}
-              href={"/employee"}>
+              href={"/login"}>
               Login
             </Link>
           </li>
@@ -54,7 +54,7 @@ export default function MainHeader() {
               className={`hover:opacity-90 duration-300 py-1.5 border-2 border-main-blue-color px-6 text-white bg-main-blue-color rounded-md ${
                 route == "/companies" ? "bg-hover-color" : ""
               }`}
-              href={"/companies"}>
+              href={"/register"}>
               Sign Up
             </Link>
           </li>

@@ -99,33 +99,43 @@ export default function RegisterUserForm() {
   const [showConfPass, setShowConfPass] = useState(false);
 
   return (
-    <form action="" className="flex flex-col gap-4 ">
+    <form className="flex flex-col gap-5 w-full ">
       <div className="flex items-center justify-between gap-4">
-        <div className="flex flex-col gap-1 w-full">
+        <div className="flex flex-col gap-2 w-full">
           <Label htmlFor="first-name" className="text-sm font-medium">
             First name
           </Label>
-          <Input type="text" id="first-name" placeholder="First name" />
+          <Input
+            className="h-10"
+            type="text"
+            id="first-name"
+            placeholder="First name"
+          />
         </div>
-        <div className="flex flex-col gap-1 w-full">
+        <div className="flex flex-col gap-2 w-full">
           <Label htmlFor="last-name" className="text-sm font-medium">
             Last name
           </Label>
-          <Input type="text" id="last-name" placeholder="Last name" />
+          <Input
+            className="h-10"
+            type="text"
+            id="last-name"
+            placeholder="Last name"
+          />
         </div>
       </div>
 
-      <div className="flex flex-col gap-1">
+      <div className="flex flex-col gap-2">
         <Label htmlFor="email" className="text-sm font-medium">
           Email
         </Label>
-        <Input type="email" id="email" placeholder="Email" />
+        <Input type="email" className="h-10" id="email" placeholder="Email" />
       </div>
-      <div className="flex flex-col gap-1">
+      <div className="flex flex-col gap-2">
         <Label htmlFor="password" className="text-sm font-medium">
           Password
         </Label>
-        <InputGroup>
+        <InputGroup className="h-10">
           <InputGroupInput
             placeholder="Password"
             type={showPass ? "text" : "password"}
@@ -153,7 +163,7 @@ export default function RegisterUserForm() {
         <Label htmlFor="conf-pass" className="text-sm font-medium">
           Confirm Password
         </Label>
-        <InputGroup>
+        <InputGroup className="h-10">
           <InputGroupInput
             placeholder="Confirm Password"
             type={showConfPass ? "text" : "password"}
@@ -180,7 +190,7 @@ export default function RegisterUserForm() {
       <div className="flex flex-col gap-1">
         <Label className="text-sm font-medium">Specialization</Label>
         <MultipleSelector
-          className="dark:bg-[#161C27]"
+          className="bg-second-bg h-10"
           commandProps={{
             label: "Specialization",
           }}
@@ -194,8 +204,8 @@ export default function RegisterUserForm() {
         />
       </div>
 
-      <Button className="cursor-pointer bg-main-blue-color text-white hover:bg-main-blue-color hover:text-white hover:opacity-75">
-        Register
+      <Button className="cursor-pointer h-10 bg-main-blue-color text-white hover:bg-main-blue-color hover:text-white hover:opacity-75">
+        Create Employee Account
       </Button>
     </form>
   );
