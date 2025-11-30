@@ -8,129 +8,96 @@ import {
   InputGroupInput,
 } from "../ui/input-group";
 
-import MultipleSelector from "../ui/multiselect";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, Phone } from "lucide-react";
 import { useState } from "react";
-const specializations = [
-  {
-    value: "frontend_development",
-    label: "Frontend Development",
-  },
-  {
-    value: "backend_development",
-    label: "Backend Development",
-  },
-  {
-    value: "fullstack_development",
-    label: "Full-Stack Development",
-  },
-  {
-    value: "mobile_development",
-    label: "Mobile App Development",
-  },
-  {
-    value: "ui_ux_design",
-    label: "UI/UX Design",
-  },
-  {
-    value: "graphic_design",
-    label: "Graphic Design",
-  },
-  {
-    value: "data_science",
-    label: "Data Science",
-  },
-  {
-    value: "machine_learning",
-    label: "Machine Learning / AI",
-  },
-  {
-    value: "cybersecurity",
-    label: "Cybersecurity",
-  },
-  {
-    value: "devops_engineering",
-    label: "DevOps Engineering",
-  },
-  {
-    value: "cloud_computing",
-    label: "Cloud Computing",
-  },
-  {
-    value: "database_administration",
-    label: "Database Administration",
-  },
-  {
-    value: "game_development",
-    label: "Game Development",
-  },
-  {
-    value: "software_testing",
-    label: "Software Testing / QA",
-  },
-  {
-    value: "blockchain_development",
-    label: "Blockchain Development",
-  },
-  {
-    value: "digital_marketing",
-    label: "Digital Marketing",
-  },
-  {
-    value: "content_writing",
-    label: "Content Writing / Copywriting",
-  },
-  {
-    value: "project_management",
-    label: "Project Management",
-  },
-  {
-    value: "it_support",
-    label: "IT Support / Helpdesk",
-  },
-  {
-    value: "network_engineering",
-    label: "Network Engineering",
-  },
-];
+import CountrySelect from "./CountrySelect";
+import { SubmitHandler, useForm } from "react-hook-form";
+import {
+  UserRegisterDataType,
+  userRegisterValidatioSchema,
+} from "@/validations/RegisterValidationSchema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import ErrorValidationMessage from "./ErrorValidationMessage";
 
 export default function RegisterUserForm() {
   const [showPass, setShowPass] = useState(false);
-  const [showConfPass, setShowConfPass] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm<UserRegisterDataType>({
+    resolver: zodResolver(userRegisterValidatioSchema),
+    mode: "onSubmit",
+  });
+  const submitRegisterUser: SubmitHandler<UserRegisterDataType> = (data) =>
+    console.log(data);
 
   return (
-    <form className="flex flex-col gap-5 w-full ">
+    <form
+      onSubmit={handleSubmit(submitRegisterUser)}
+      className="flex flex-col gap-5 w-full ">
+      {/* Name */}
       <div className="flex items-center justify-between gap-4">
         <div className="flex flex-col gap-2 w-full">
           <Label htmlFor="first-name" className="text-sm font-medium">
             First name
           </Label>
           <Input
+            {...register("firstName")}
             className="h-10"
             type="text"
             id="first-name"
             placeholder="First name"
           />
         </div>
+
         <div className="flex flex-col gap-2 w-full">
           <Label htmlFor="last-name" className="text-sm font-medium">
             Last name
           </Label>
           <Input
             className="h-10"
+            {...register("lastName")}
             type="text"
             id="last-name"
             placeholder="Last name"
           />
         </div>
       </div>
+      {(errors.firstName || errors.lastName) && (
+        <div className="flex items-center gap-6 flex-wrap">
+          {errors.firstName && (
+            <ErrorValidationMessage
+              message={errors.firstName.message as string}
+            />
+          )}
+          {errors.lastName && (
+            <ErrorValidationMessage
+              message={errors.lastName.message as string}
+            />
+          )}
+        </div>
+      )}
 
+      {/* Email */}
       <div className="flex flex-col gap-2">
         <Label htmlFor="email" className="text-sm font-medium">
           Email
         </Label>
-        <Input type="email" className="h-10" id="email" placeholder="Email" />
+        <Input
+          {...register("email")}
+          type="email"
+          className="h-10"
+          id="email"
+          placeholder="Email"
+        />
+        {errors.email && (
+          <ErrorValidationMessage message={errors.email.message as string} />
+        )}
       </div>
+
+      {/* Password */}
       <div className="flex flex-col gap-2">
         <Label htmlFor="password" className="text-sm font-medium">
           Password
@@ -140,6 +107,7 @@ export default function RegisterUserForm() {
             placeholder="Password"
             type={showPass ? "text" : "password"}
             id="password"
+            {...register("password")}
           />
           <InputGroupAddon align="inline-end">
             <InputGroupButton
@@ -157,51 +125,51 @@ export default function RegisterUserForm() {
             </InputGroupButton>
           </InputGroupAddon>
         </InputGroup>
+        {errors.password && (
+          <ErrorValidationMessage message={errors.password.message as string} />
+        )}
       </div>
 
+      {/* Country */}
       <div className="flex flex-col gap-1">
-        <Label htmlFor="conf-pass" className="text-sm font-medium">
-          Confirm Password
+        <Label className="text-sm font-medium">Country</Label>
+        <CountrySelect setCountryValue={setValue} />
+        {errors.location && (
+          <ErrorValidationMessage message={errors.location.message as string} />
+        )}
+      </div>
+
+      {/* Phone Number */}
+      <div className="flex flex-col gap-2">
+        <Label htmlFor="phone-number" className="text-sm font-medium">
+          Phone Number
         </Label>
         <InputGroup className="h-10">
           <InputGroupInput
-            placeholder="Confirm Password"
-            type={showConfPass ? "text" : "password"}
-            id="conf-pass"
+            placeholder="Phone Number"
+            type="text"
+            id="phone-number"
+            onChange={(e) => {
+              const onlyNums = e.target.value.replace(/\D/g, "");
+              e.target.value = onlyNums;
+              setValue("phoneNumber", e.target.value);
+            }}
           />
+
           <InputGroupAddon align="inline-end">
             <InputGroupButton
-              aria-label="Show Password"
-              title="Show Password"
-              size="sm"
-              onClick={() => {
-                setShowConfPass((pre) => !pre);
-              }}>
-              {showConfPass ? (
-                <Eye className="w-5 h-5" />
-              ) : (
-                <EyeOff className="w-5 h-5" />
-              )}
+              aria-label="Phone Number"
+              title="Phone Number"
+              size="sm">
+              <Phone />
             </InputGroupButton>
           </InputGroupAddon>
         </InputGroup>
-      </div>
-
-      <div className="flex flex-col gap-1">
-        <Label className="text-sm font-medium">Specialization</Label>
-        <MultipleSelector
-          className="bg-second-bg h-10"
-          commandProps={{
-            label: "Specialization",
-          }}
-          defaultOptions={specializations}
-          onChange={(e) => console.log(e)}
-          placeholder="Select Specialization"
-          hidePlaceholderWhenSelected
-          emptyIndicator={
-            <p className="text-center text-sm">No results found</p>
-          }
-        />
+        {errors.phoneNumber && (
+          <ErrorValidationMessage
+            message={errors.phoneNumber.message as string}
+          />
+        )}
       </div>
 
       <Button className="cursor-pointer h-10 bg-main-blue-color text-white hover:bg-main-blue-color hover:text-white hover:opacity-75">

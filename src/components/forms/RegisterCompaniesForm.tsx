@@ -9,47 +9,44 @@ import {
 } from "../ui/input-group";
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
+import {
+  CreateCompanyInput,
+  createCompanySchema,
+} from "@/validations/RegisterValidationSchema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import ErrorValidationMessage from "./ErrorValidationMessage";
+import { SubmitHandler, useForm } from "react-hook-form";
 
 export default function RegisterCompaniesForm() {
   const [showPass, setShowPass] = useState(false);
-  const [showConfPass, setShowConfPass] = useState(false);
-
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<CreateCompanyInput>({
+    resolver: zodResolver(createCompanySchema),
+    mode: "onSubmit",
+  });
+  const submitRegisterUser: SubmitHandler<CreateCompanyInput> = (data) =>
+    console.log(data);
   return (
-    <form action="" className="flex flex-col gap-4 ">
+    <form
+      onSubmit={handleSubmit(submitRegisterUser)}
+      className="flex flex-col gap-4 ">
       <div className="flex flex-col gap-2 w-full">
         <Label htmlFor="company-name" className="text-sm font-medium">
           Company name
         </Label>
         <Input
+          {...register("name")}
           className="h-10"
           type="text"
           id="company-name"
           placeholder="Company name"
         />
-      </div>
-      <div className="flex items-center justify-between gap-4">
-        <div className="flex flex-col gap-2 w-full">
-          <Label htmlFor="first-name" className="text-sm font-medium">
-            First name
-          </Label>
-          <Input
-            className="h-10"
-            type="text"
-            id="first-name"
-            placeholder="First name"
-          />
-        </div>
-        <div className="flex flex-col gap-2 w-full">
-          <Label htmlFor="last-name" className="text-sm font-medium">
-            Last name
-          </Label>
-          <Input
-            className="h-10"
-            type="text"
-            id="last-name"
-            placeholder="Last name"
-          />
-        </div>
+        {errors.name && (
+          <ErrorValidationMessage message={errors.name.message as string} />
+        )}
       </div>
 
       <div className="flex flex-col gap-2">
@@ -58,10 +55,14 @@ export default function RegisterCompaniesForm() {
         </Label>
         <Input
           className="h-10"
+          {...register("email")}
           type="email"
           id="email"
           placeholder="Business email"
         />
+        {errors.email && (
+          <ErrorValidationMessage message={errors.email.message as string} />
+        )}
       </div>
 
       <div className="flex flex-col gap-2">
@@ -72,6 +73,7 @@ export default function RegisterCompaniesForm() {
           <InputGroupInput
             placeholder="Password"
             type={showPass ? "text" : "password"}
+            {...register("password")}
             id="password"
           />
           <InputGroupAddon align="inline-end">
@@ -90,35 +92,71 @@ export default function RegisterCompaniesForm() {
             </InputGroupButton>
           </InputGroupAddon>
         </InputGroup>
+        {errors.password && (
+          <ErrorValidationMessage message={errors.password.message as string} />
+        )}
       </div>
 
       <div className="flex flex-col gap-2">
-        <Label htmlFor="conf-pass" className="text-sm font-medium">
-          Confirm Password
+        <Label htmlFor="website-url" className="text-sm font-medium">
+          Website URL
         </Label>
-        <InputGroup className="h-10">
-          <InputGroupInput
-            placeholder="Confirm Password"
-            type={showConfPass ? "text" : "password"}
-            id="conf-pass"
+        <Input
+          className="h-10"
+          {...register("websiteURL")}
+          type="text"
+          id="website-url"
+          placeholder="Website URL"
+        />
+        {errors.websiteURL && (
+          <ErrorValidationMessage
+            message={errors.websiteURL.message as string}
           />
-          <InputGroupAddon align="inline-end">
-            <InputGroupButton
-              aria-label="Show Password"
-              title="Show Password"
-              size="sm"
-              onClick={() => {
-                setShowConfPass((pre) => !pre);
-              }}>
-              {showConfPass ? (
-                <Eye className="w-5 h-5" />
-              ) : (
-                <EyeOff className="w-5 h-5" />
-              )}
-            </InputGroupButton>
-          </InputGroupAddon>
-        </InputGroup>
+        )}
       </div>
+
+      <div className="flex items-center gap-5 flex-col sm:flex-row">
+        <div className="flex flex-col gap-2 w-full">
+          <Label htmlFor="industry" className="text-sm font-medium">
+            Industry
+          </Label>
+          <Input
+            className="h-10"
+            type="text"
+            id="industry"
+            {...register("industry")}
+            placeholder="Industry"
+          />
+        </div>
+
+        <div className="flex flex-col gap-2 w-full">
+          <Label htmlFor="address" className="text-sm font-medium">
+            Address
+          </Label>
+          <Input
+            className="h-10"
+            type="text"
+            id="address"
+            {...register("headquarterAddress")}
+            placeholder="Address"
+          />
+        </div>
+      </div>
+
+      {(errors.industry || errors.headquarterAddress) && (
+        <div className="flex items-center gap-4">
+          {errors.industry && (
+            <ErrorValidationMessage
+              message={errors.industry.message as string}
+            />
+          )}{" "}
+          {errors.headquarterAddress && (
+            <ErrorValidationMessage
+              message={errors.headquarterAddress.message as string}
+            />
+          )}
+        </div>
+      )}
 
       <Button className="cursor-pointer h-10 bg-main-blue-color text-white hover:bg-main-blue-color hover:text-white hover:opacity-75">
         Create Company Account

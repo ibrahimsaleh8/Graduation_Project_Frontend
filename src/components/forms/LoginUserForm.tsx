@@ -15,11 +15,30 @@ import {
   CheckboxIndicator,
 } from "@/components/animate-ui/primitives/base/checkbox";
 import { motion } from "framer-motion";
+import { useForm, SubmitHandler } from "react-hook-form";
+import {
+  loginDataType,
+  loginValidatioSchema,
+} from "@/validations/loginValidatioSchema";
+import ErrorValidationMessage from "./ErrorValidationMessage";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 export default function LoginUserForm() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<loginDataType>({
+    resolver: zodResolver(loginValidatioSchema),
+    mode: "onSubmit",
+  });
+  const submitLogin: SubmitHandler<loginDataType> = (data) => console.log(data);
+
   const [showPass, setShowPass] = useState(false);
+
   return (
     <motion.form
+      onSubmit={handleSubmit(submitLogin)}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{
@@ -27,12 +46,18 @@ export default function LoginUserForm() {
         delay: 0.5,
       }}
       className="flex flex-col gap-5 md:w-3/4 w-full mx-auto">
+      {/* Email */}
       <div className="flex flex-col gap-2">
         <Label htmlFor="email" className="font-medium">
           Email
         </Label>
         <InputGroup className="h-10">
-          <InputGroupInput placeholder="Email" type="email" id="email" />
+          <InputGroupInput
+            {...register("email")}
+            placeholder="Email"
+            type="email"
+            id="email"
+          />
           <InputGroupAddon align="inline-end">
             <InputGroupButton aria-label="Email" title="Email" size="sm">
               <AtSign />
@@ -40,13 +65,18 @@ export default function LoginUserForm() {
           </InputGroupAddon>
         </InputGroup>
       </div>
+      {errors.email && (
+        <ErrorValidationMessage message={errors.email.message as string} />
+      )}
 
+      {/* Password */}
       <div className="flex flex-col gap-2">
         <Label htmlFor="password" className="text-sm font-medium">
           Password
         </Label>
         <InputGroup className="h-10">
           <InputGroupInput
+            {...register("password")}
             placeholder="Password"
             type={showPass ? "text" : "password"}
             id="password"
@@ -70,6 +100,9 @@ export default function LoginUserForm() {
         </InputGroup>
       </div>
 
+      {errors.password && (
+        <ErrorValidationMessage message={errors.password.message as string} />
+      )}
       <div className="flex items-center flex-wrap justify-between gap-4">
         <div className="flex items-center gap-1.5">
           <Checkbox

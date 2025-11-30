@@ -6,6 +6,7 @@ import Link from "next/link";
 import authImage from "@images/auth-image.png";
 import { House } from "lucide-react";
 import { motion } from "framer-motion";
+
 export default function LoginPage() {
   return (
     <div className="w-full md:h-screen min-h-screen flex p-2 ">
